@@ -7,17 +7,14 @@ import io.github.rodrigodante.clientes.model.repository.ServicoPrestadoRepositor
 import io.github.rodrigodante.clientes.rest.dto.ServicoPrestadoDTO;
 import io.github.rodrigodante.clientes.util.BigDecimalConverter;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.annotation.RequiredTypes;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/servicos-prestados")
