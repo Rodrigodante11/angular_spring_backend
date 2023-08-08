@@ -3,7 +3,11 @@ package io.github.rodrigodante.clientes.rest;
 import io.github.rodrigodante.clientes.model.entity.Cliente;
 import io.github.rodrigodante.clientes.model.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,11 +30,6 @@ public class ClienteController {
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente salvar(@RequestBody @Valid Cliente cliente){
         return repository.save(cliente);
-    }
-
-    @GetMapping()
-    public List<Cliente> obterTodos(){
-        return repository.findAll();
     }
 
     @GetMapping("/{id}")
@@ -64,5 +63,12 @@ public class ClienteController {
                     return repository.save(cliente);
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Page<Cliente> list(Pageable pageable){
+
+        return repository.findAll(pageable);
     }
 }
