@@ -1,5 +1,7 @@
 package io.github.rodrigodante.clientes.config;
 
+import io.github.rodrigodante.clientes.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,13 +16,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecutiryConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .inMemoryAuthentication()
-                .withUser("fulano")
-                .password("123")
-                .roles("USER");
+                .userDetailsService(usuarioService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
