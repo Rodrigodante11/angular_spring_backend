@@ -32,7 +32,7 @@ public class ApplicationControllerAdvice {
 
     @ExceptionHandler(ResponseStatusException.class) // Retorno dinamico para os HTTP STATUS
     public ResponseEntity handleResponseStatusException(ResponseStatusException ex ){
-        String mensagemErro = ex.getMessage();
+        String mensagemErro = ex.getReason();
         HttpStatus codigoStatus = ex.getStatus();
         ApiErrors apiErros = new ApiErrors(mensagemErro);
         return new ResponseEntity(apiErros, codigoStatus);
